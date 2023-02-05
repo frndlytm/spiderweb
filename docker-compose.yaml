@@ -1,16 +1,31 @@
 version: "3.9"
 
 services:
-  app:
+  base: &base-service
     build: "."
+    depends_on:
+      - "redis-stack"
+    volumes:
+      - ".:./"
+
+  # Apps
+  api:
+    <<: *base-service
     ports:
       - "8000:5000"
-    volumes:
-      - ".:/"
+
     environment:
       APP_MODULE: "main:api"
       LOG_LEVEL: "info"
 
+  # Commands
+  make-dataset:
+    <<: *base-service
+    command:
+      - "echo 'Hello, World!'"
+
+
+  # Devices
   redis-stack:
     image: "redis/redis-stack:latest"
     ports:
