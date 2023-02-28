@@ -6,4 +6,4 @@ class ExtractIdentifiers(TSqlParserListener):
         self.ids = []
 
     def enterId_(self, ctx: TSqlParser.Id_Context):
-        if not ctx.keyword: self.ids.append(str(ctx))
+        self.ids.append(ctx.getText())
