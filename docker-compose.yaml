@@ -3,10 +3,10 @@ version: "3.9"
 services:
   base: &base-service
     build: "."
-    depends_on:
-      - "redis-stack"
+    # depends_on:
+    #   - "redis-stack"
     volumes:
-      - ".:./"
+      - ".:/code/app"
 
   # Apps
   api:
@@ -15,7 +15,7 @@ services:
       - "8000:5000"
 
     environment:
-      APP_MODULE: "main:api"
+      APP_MODULE: "app.main:api"
       LOG_LEVEL: "info"
 
   # Commands
@@ -23,7 +23,6 @@ services:
     <<: *base-service
     command:
       - "echo 'Hello, World!'"
-
 
   # Devices
   redis-stack:
