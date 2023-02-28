@@ -3,27 +3,30 @@ version: "3.9"
 services:
   base: &base-service
     build: "."
-    depends_on:
-      - "redis-stack"
+    tty: true
+
+    # depends_on:
+    #   - "redis-stack"
     volumes:
-      - ".:./"
+      - ".:/code"
 
   # Apps
   api:
     <<: *base-service
-    ports:
-      - "8000:5000"
-
+    container_name: spiderweb-fastapi
     environment:
-      APP_MODULE: "main:api"
-      LOG_LEVEL: "info"
+      PORT: 8000
+      APP_MODULE: "app.main:api"
+      LOG_LEVEL: "debug"
+
+    ports:
+      - "8000:8000"
 
   # Commands
   make-dataset:
     <<: *base-service
     command:
       - "echo 'Hello, World!'"
-
 
   # Devices
   redis-stack:

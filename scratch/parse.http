@@ -1,0 +1,8 @@
+### POST a SQL query to parse
+POST http://localhost:8080/parse/mssql/vocab HTTP/1.1
+Content-Type: application/json
+
+{
+  "body": "SELECT name FROM information_schema.tables"
+}
+

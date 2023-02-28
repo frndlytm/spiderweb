@@ -3,7 +3,7 @@ from typing import SupportsFloat
 from fastapi import APIRouter
 from .models import Tag
 
-router = APIRouter(prefix="vocab", tags=["vocab"])
+router = APIRouter(prefix="/vocab", tags=["vocab"])
 
 
 @router.get("/{name}")
